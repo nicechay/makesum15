@@ -1,120 +1,26 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <!-- Demo:	make-sum-15	|	Author:	Nishchay Garg -->
 
 <head>
-	<meta charset="UTF-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1" />
-	
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta property="og:url" content="http://hyphen.fun/" />
+	<meta property="og:title" content="Make Sum 15" />
+	<meta property="og:description" content="Explore the beauty of summation with simple game." />
+	<meta property="og:image" content="http://hyphen.fun/screenshot.jpg"/>
     <title>Make Sum 15</title>
     <style>
-        body,
-        div,
-        p,
-        li,
-        ul {
-            margin: 0;
-            padding: 0;
-            font-family: 'Roboto Slab',cursive,Tahoma, sans-serif;
-            text-align: center;
-            font-weight: 300;
-            box-sizing: border-box;
-        }
-        
-        body {
-            margin-top: 4%;
-            transition: all 200ms linear;
-            user-select: none;
-        }
-        
-        .heading {
-            font-size: 48px;
-            margin: 20px auto 20px auto;
-            font-weight: 100;
-        }
-        
-        table,
-        td,
-        tr {
-            box-sizing: border-box;
-            border: 1px solid #d9d9d9;
-        }
-        
-        td {
-            cursor: pointer;
-        }
-        
-        .gameBox {
-            margin: 28px auto;
-            border-spacing: 0;
-            border-collapse: collapse;
-            width: 255px;
-            height: 255px;
-        }
-        
-        .keypad ul {
-            list-style: none;
-            max-width: 255px;
-            margin: 0 auto;
-        }
-        
-        .keypad li {
-            display: inline-block;
-            width: 60px;
-            border: 1px solid #d9d9d9;
-            height: 60px;
-            vertical-align: middle;
-            line-height: 60px;
-            cursor: pointer;
-        }
-        
-        .comment {
-            font-size: 18px;
-        }
-        
-        .abstract {
-            max-width: 480px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        
-        .abstract p {
-            text-align: left;
-        }
-        
-        .abstract b {
-            line-height: 45px;
-        }
-        
-        .activate {
-            background-color: #f5f5f5;
-        }
-        
-        .reload {
-            cursor: pointer;
-            color: #08c;
-            padding: 20px;
-        }
-        
-        .rules {
-            cursor: pointer;
-            color: #08c;
-        }
-        
-        .note {
-            padding: 20px 0;
-            font-size: 14px;
-        }
-        
-        .hide {
-            display: none;
-        }
+        body,div,p,li,ul{margin:0;padding:0;font-family:'Roboto Slab',sans-serif;text-align:center;font-weight:300;box-sizing:border-box}body{margin-top:4%;transition:all 200ms linear;user-select:none;background-color:rgb(50,50,50);color:#f5f5f5;background-image:url(images/stripe.png)}.heading{font-size:48px;margin:8px auto;font-weight:100}table,td,tr{box-sizing:border-box;border:1px solid #d9d9d9}td{cursor:pointer;transition:all .5s linear}.gameBox{margin:28px auto;border-spacing:0;border-collapse:collapse;width:255px;height:255px}.keypad ul{list-style:none;max-width:255px;margin:0 auto}.keypad li{margin:6px;border-radius:50%;display:inline-block;transition:all 300ms linear;width:48px;border:1px solid #FF7C72;color:#FF7C72;height:48px;vertical-align:middle;line-height:48px;cursor:pointer}.keypad li:hover{font-weight:700;background-color:#FF7C72;color:#f5f5f5}.comment{font-size:18px;padding-bottom:20px;max-width:75%;margin:0 auto}.abstract{max-width:480px;margin:0 auto;padding:20px}.abstract a{color:#18F38C}.abstract p{text-align:left}.abstract b{line-height:45px}.activate{background:rgba(204,208,212,.2);box-shadow:inset 0 0 20px rgba(255,255,255,.5),0 0 20px rgba(255,255,255,.2)}.mode{color:#18F38C;cursor:pointer}.link{cursor:pointer;color:#18F38C;padding:8px;border:1px solid;max-width:180px;margin:0 auto}.note{padding:20px 0;font-size:14px}.hide{display:none}
     </style>
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:100,300" rel="stylesheet">
 </head>
+
 
 <body>
     <p class="heading">Make Sum 15</p>
-    <p class="rules">About the game</p>
+    <p class="rules link">About the game</p>
     <div class="abstract hide">
         <b>Make Sum 15</b>
         <p>Created by <a href="https://github.com/nicechay">Nishchay Garg</a></p>
@@ -129,6 +35,9 @@
         <p>2. Any Cell once filled, cannot be altered till the end of game</p>
         <b>How to Win</b>
         <p>One way to win the game is create a deadlock (e.g. filling the middle cell with 5 always creates a deadlock) , the other way can be luck !</p>
+        <b> Change Difficulty </b>
+        <p class="mode">Change to Easy Mode</p>
+
         <p class="note">The game should not be considered as (or to be confused with) an isomorph of tic-tac-toe.In the game , it doesnot matter who filled the cell until it is a winning turn.</p>
 
     </div>
@@ -139,20 +48,27 @@
     <div class="keypad">
 
     </div>
-    <p class="reload"></p>
+    <p class="reload link"></p>
 
     <script>
-        function fill(e, r) {
+        function colorize() {
+            for (var e = 0; n > e; e++) {
+                var a = document.getElementsByClassName("cell" + e)[0];
+                "_" == a.innerText ? a.style.color = "transparent" : a.style.color = "#f5f5f5"
+            }
+        }
+
+        function fill(e, a) {
             if (gameEnded) return !1;
-            arr[e] = r;
-            for (var a = 0; n > a; a++) document.getElementsByClassName("cell" + a)[0].innerText = -15 == arr[a] ? "_" : arr[a];
-            return !0
+            arr[e] = a;
+            for (var r = 0; n > r; r++) document.getElementsByClassName("cell" + r)[0].innerText = -15 == arr[r] ? "_" : arr[r];
+            return colorize(), !0
         }
 
         function init() {
             for (var e = 0; n > e; e++) arr[e] = -15;
-            for (var r = 5; 5 == r;) r = Math.floor(9 * Math.random()) + 1;
-            fill(4, r), playerTurn = !0
+            for (var a = 5; 5 == a;) a = Math.floor(9 * Math.random()) + 1;
+            fill(4, a), playerTurn = !0
         }
 
         function checkStatus() {
@@ -164,51 +80,51 @@
         }
 
         function isUsed(e) {
-            for (var r = 0; n > r; r++)
-                if (arr[r] === e) return !0;
+            for (var a = 0; n > a; a++)
+                if (arr[a] === e) return !0;
             return !1
         }
 
-        function isValid(e, r) {
+        function isValid(e, a) {
             if (-15 != arr[e]) return !1;
-            for (var a = getKeys(), n = 0; n < a.length; n++)
-                if (r == a[n]) return !0;
+            for (var r = getKeys(), n = 0; n < r.length; n++)
+                if (a == r[n]) return !0;
             return !1
         }
 
         function canWin() {
             for (var e = 0; n > e; e++)
-                for (var r = 1; n >= r; r++)
-                    if (-15 == arr[e] && !isUsed(r)) {
-                        if (arr[e] = r, checkStatus()) return arr[e] = -15, 11 * e + r;
+                for (var a = 1; n >= a; a++)
+                    if (-15 == arr[e] && !isUsed(a)) {
+                        if (arr[e] = a, checkStatus()) return arr[e] = -15, 11 * e + a;
                         arr[e] = -15
                     }
             return 0
         }
 
         function getKeys() {
-            for (var e = [], r = 1; 9 >= r; r++) isUsed(r) || e.push(r);
+            for (var e = [], a = 1; 9 >= a; a++) isUsed(a) || e.push(a);
             return e
         }
 
         function runAuto(e) {
-            var r = getKeys();
-            if (!r.length) return endGame(3), 0;
-            var a = canWin();
-            if (a) {
-                var n = Math.floor(a / 11),
-                    t = a % 11;
+            var a = getKeys();
+            if (!a.length) return endGame(3), 0;
+            var r = canWin();
+            if (r) {
+                var n = Math.floor(r / 11),
+                    t = r % 11;
                 return fill(n, t), endGame(2), 1
             }
-            for (; r.length;) {
-                var i = Math.floor(8 * Math.random()),
-                    l = r[Math.floor(Math.random() * r.length)];
-                if (-15 == arr[i] && isValid(i, l)) return arr[i] = l, canWin() && 1 !== e ? (arr[i] = -15, 3) : (fill(i, l), playerTurn = !0, 2)
+            for (; a.length;) {
+                var i = Math.floor(9 * Math.random()),
+                    d = a[Math.floor(Math.random() * a.length)];
+                if (-15 == arr[i] && isValid(i, d)) return arr[i] = d, canWin() && 1 !== e ? (arr[i] = -15, 3) : (fill(i, d), playerTurn = !0, a.length ? 2 : (endGame(3), 0))
             }
         }
 
-        function runPlayer(e, r) {
-            return isValid(e, r) ? (fill(e, r), playerTurn = !1, checkStatus() && endGame(1), !0) : !1
+        function runPlayer(e, a) {
+            return isValid(e, a) ? (fill(e, a), playerTurn = !1, checkStatus() && endGame(1), !0) : !1
         }
 
         function makeTable() {
@@ -225,17 +141,17 @@
         }
 
         function showKeypad() {
-            for (var e = getKeys(), r = document.createElement("ul"), a = 0; a < e.length; a++) {
+            for (var e = getKeys(), a = document.createElement("ul"), r = 0; r < e.length; r++) {
                 var n = document.createElement("li");
-                n.setAttribute("data-index", a), n.setAttribute("data-value", e[a]), n.innerText = e[a], r.appendChild(n)
+                n.setAttribute("data-index", r), n.setAttribute("data-value", e[r]), n.innerText = e[r], a.appendChild(n)
             }
-            return r
+            return a
         }
 
         function endGame(e) {
             gameEnded = !0;
-            var r;
-            1 == e && (r = "Well I guess, You Win !!  "), 2 == e && (r = "You lose !!"), 3 == e && (r = "It's a tie !!"), document.getElementsByClassName("comment")[0].classList.remove("hide"), document.getElementsByClassName("reload")[0].classList.remove("hide"), document.getElementsByClassName("comment")[0].innerText = r, document.getElementsByClassName("reload")[0].innerText = "Play Again"
+            var a;
+            1 == e && (a = "Well I guess, You Win !!  "), 2 == e && (a = "You lose !! "), 3 == e && (a = "It's a tie !! "), easyMode && (a += " This is easy mode."), document.getElementsByClassName("comment")[0].classList.remove("hide"), document.getElementsByClassName("reload")[0].classList.remove("hide"), document.getElementsByClassName("comment")[0].innerText = a, document.getElementsByClassName("reload")[0].innerText = "Play Again"
         }
 
         function newGame() {
@@ -251,6 +167,8 @@
             playerTurn = !1,
             gameEnded = !1,
             nowClick = 4,
+            modValue = 81,
+            easyMode = !1,
             ng = function(e) {
                 return document.getElementsByClassName(e)[0]
             },
@@ -260,20 +178,29 @@
             keypad = ng("keypad"),
             reload = ng("reload"),
             rules = ng("rules"),
-            abs = ng("abstract");
+            abs = ng("abstract"),
+            mode = ng("mode");
         rules.onclick = function(e) {
             e.target.classList.contains("display") ? (rules.classList.remove("display"), abs.classList.add("hide"), rules.innerText = "About the game", newGame()) : (rules.classList.add("display"), abs.classList.remove("hide"), rules.innerText = "Play the game", hideGame())
         }, game.onclick = function(e) {
             keypad.innerHTML = "", nowClick = parseInt(e.target.getAttribute("data-index")), ng("activate") && ng("activate").classList.remove("activate"), "_" != e.target.innerText || gameEnded || (keypad.appendChild(showKeypad()), e.target.classList.add("activate"))
         }, keypad.onclick = function(e) {
             if (gameEnded || !playerTurn) return !1;
-            var r = nowClick,
-                a = parseInt(e.target.getAttribute("data-value"));
-            runPlayer(r, a), keypad.innerHTML = "";
-            for (var n = 0; 3 == runAuto(); n++) 81 == n && runAuto(1);
-            0 == getKeys().length && endGame(3)
+            if (!e.target.getAttribute("data-value")) return !1;
+            var a = nowClick,
+                r = parseInt(e.target.getAttribute("data-value"));
+            if (runPlayer(a, r), keypad.innerHTML = "", !gameEnded) {
+                for (var n = 0; 3 == runAuto(0); n++)
+                    if (n == modValue) {
+                        runAuto(1);
+                        break
+                    }
+                0 != getKeys().length || gameEnded || endGame(3)
+            }
         }, reload.onclick = function() {
             newGame()
+        }, mode.onclick = function() {
+            easyMode ? (mode.innerText = "Change to Easy Mode", easyMode = !1, modValue = 81) : (mode.innerText = "Change to Hard Mode", easyMode = !0, modValue = 6)
         }, newGame();
     </script>
 </body>
